@@ -35,7 +35,7 @@ module Brigadier
     end
 
     def inverse_toggle_arg?(arg)
-      !!arg.match(/^-{1,}no.+$/)
+      arg =~ /^-{1,}no.+$/ ? true : false
     end
 
     def sub_command?

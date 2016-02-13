@@ -44,7 +44,7 @@ module Brigadier
         end
 
         def validate_presence!
-          fail Exceptions::ValueMissing.new(self), 'Value is empty' if [ nil, '' ].include?(value)
+          raise Exceptions::ValueMissing.new(self), 'Value is empty' if [ nil, '' ].include?(value)
         end
     end
   end

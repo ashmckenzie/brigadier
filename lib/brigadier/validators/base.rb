@@ -6,7 +6,7 @@ module Brigadier
       end
 
       def validate!
-        fail Brigadier::Exceptions::Base.new(obj), failure_message unless valid?
+        raise Brigadier::Exceptions::Base.new(obj), failure_message unless valid?
       end
 
       private

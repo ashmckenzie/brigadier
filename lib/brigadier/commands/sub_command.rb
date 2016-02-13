@@ -26,9 +26,9 @@ module Brigadier
 
         process_args(args.dup, klass)
 
-        set_toggles_from(available_toggles)
-        set_options_from(available_options)
-        set_arguments_from(available_arguments)
+        assign_toggles_from(available_toggles)
+        assign_options_from(available_options)
+        assign_arguments_from(available_arguments)
 
         return if display_help_if_requested(klass, full_args)
 
@@ -37,7 +37,7 @@ module Brigadier
         if (execute = klass.instance_variable_get('@execute_proc'))
           instance.instance_eval(&execute)
         else
-          fail Exceptions::ExecuteBlockMissing.new(self), 'There is no execute {} block defined'
+          raise Exceptions::ExecuteBlockMissing.new(self), 'There is no execute {} block defined'
         end
       end
 

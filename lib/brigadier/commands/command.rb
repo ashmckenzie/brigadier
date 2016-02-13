@@ -13,9 +13,9 @@ module Brigadier
       def execute(args, full_args, klasses)
         process_args(args, instance)
 
-        set_toggles_from(available_toggles)
-        set_options_from(available_options)
-        set_arguments_from(available_arguments)
+        assign_toggles_from(available_toggles)
+        assign_options_from(available_options)
+        assign_arguments_from(available_arguments)
 
         # FIXME
         objs = (full_args.count == 1) ? klasses : klass

@@ -51,11 +51,11 @@ module Brigadier
         attr_reader :args
 
         def validate_valid_value!
-          fail Exceptions::ValueInvalid.new(self), 'Value is invalid.  Valid values are %s' % [ valid_values] if valid_values? && !valid_values.include?(value)
+          raise Exceptions::ValueInvalid.new(self), 'Value is invalid.  Valid values are %s' % [ valid_values] if valid_values? && !valid_values.include?(value)
         end
 
         def validate_presence!
-          fail Exceptions::ValueMissing.new(self), 'Value is empty' if [ nil, '' ].include?(value)
+          raise Exceptions::ValueMissing.new(self), 'Value is empty' if [ nil, '' ].include?(value)
         end
     end
   end

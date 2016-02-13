@@ -9,8 +9,8 @@ module Brigadier
           arg = args.shift
           if option_or_toggle?(arg)
             next if set_options_for(arg, args, obj.options) || set_toggles_for(arg, obj.toggles)
-          else
-            next if set_argument_for(arg, obj.arguments)
+          elsif set_argument_for(arg, obj.arguments)
+            next
           end
         end
         args = args_to_keep
@@ -24,7 +24,7 @@ module Brigadier
         false
       end
 
-      def set_toggles_from(toggles)
+      def assign_toggles_from(toggles)
         toggles.each do |toggle|
           name = toggle.normalised_attribute_name.to_sym
           method_name = "#{name}?"
@@ -34,11 +34,11 @@ module Brigadier
         end
       end
 
-      def set_options_from(parameters)
+      def assign_options_from(parameters)
         create_variable_and_method_from(parameters)
       end
 
-      def set_arguments_from(parameters)
+      def assign_arguments_from(parameters)
         create_variable_and_method_from(parameters)
       end
 
@@ -52,14 +52,7 @@ module Brigadier
       end
 
       def ensure_parameters_defined!(*parameters)
-        captured_errors = []
-        parameters.flatten.each do |parameter|
-          begin
-            parameter.validate!
-          rescue Exceptions::Base => e
-            captured_errors << e.as_str
-          end
-        end
+        captured_errors = validate_parameters!(parameters)
         unless captured_errors.empty?
           captured_errors.each { |e| $stderr.puts "ERROR: #{e}" }
           exit(Exceptions::ERROR_EXIT_CODE)
@@ -67,6 +60,17 @@ module Brigadier
       end
 
       private
+
+        def validate_parameters!(parameters)
+          captured_errors = []
+          parameters.flatten.each do |parameter|
+            begin
+              parameter.validate!
+            rescue Exceptions::Base => e
+              captured_errors << e.as_str
+            end
+          end
+        end
 
         def set_toggles_for(arg, obj)
           obj.each do |names, toggle|
@@ -88,7 +92,7 @@ module Brigadier
         end
 
         def set_argument_for(value, obj)
-          obj.each do |name, argument|
+          obj.each do |_, argument|
             next if argument.value
             argument.value = value
             return true
