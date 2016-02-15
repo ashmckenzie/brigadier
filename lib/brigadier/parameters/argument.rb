@@ -20,12 +20,7 @@ module Brigadier
         opts = []
         opts << 'valid_values: %s' % [ valid_values.inspect ] if valid_values?
         opts << 'current: %s' % [ value.inspect ]
-
-        if opts.empty?
-          '%s' % [ description ]
-        else
-          '%s (%s)' % [ description, opts.join(', ') ]
-        end
+        '%s (%s)' % [ description, opts.join(', ') ]
       end
 
       def valid_values

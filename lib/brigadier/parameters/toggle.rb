@@ -8,6 +8,7 @@ module Brigadier
         @description = description
         @args = args
         @block = block
+        @value = default_value
         assign_value_from_env_variable
       end
 

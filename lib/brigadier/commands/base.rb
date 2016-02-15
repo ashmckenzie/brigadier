@@ -70,6 +70,7 @@ module Brigadier
               captured_errors << e.as_str
             end
           end
+          captured_errors
         end
 
         def set_toggles_for(arg, obj)
