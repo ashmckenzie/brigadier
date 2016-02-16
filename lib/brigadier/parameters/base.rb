@@ -60,7 +60,7 @@ module Brigadier
 
         def assign_value_from_env_variable
           value = ENV.fetch(env_variable_value_key_name, default_value)
-          self.value = value if value
+          @value = value if value
         end
 
         def normalised_name
