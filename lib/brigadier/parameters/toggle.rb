@@ -28,9 +28,17 @@ module Brigadier
         assign_value(false)
       end
 
+      def enabled?
+        value
+      end
+
       private
 
         attr_reader :args
+
+        def value
+          [ true, 'true' ].include?(@value)
+        end
 
         def value_set?
           value != default_value
@@ -40,14 +48,6 @@ module Brigadier
           detail = [ 'default: %s' % [ default_value ] ]
           detail << 'current: %s' % [ value ] if value_set?
           detail.join(', ')
-        end
-
-        def aliases
-          args.fetch(:aliases, [])
-        end
-
-        def klass_only
-          self.class.to_s.to_s.gsub(/^.*::/, '')
         end
 
         def default_value

@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'pry-byebug'
 
 describe Brigadier::Parameters::Option do
   let(:name) { 'log-level' }
