@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'pry-byebug'
 
 describe Brigadier::Parameters::Toggle do
   let(:name) { 'debug' }

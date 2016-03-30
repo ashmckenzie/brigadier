@@ -28,7 +28,7 @@ module Brigadier
       end
 
       def validate!
-        validate_presence!    if required?
+        validate_presence!
         validate_valid_value! if valid_values?
         validate_using_klass! if validator_klasses
         true
@@ -38,11 +38,11 @@ module Brigadier
         true
       end
 
-      def valid_values?
-        !valid_values.empty?
-      end
-
       private
+
+        def valid_values?
+          !valid_values.empty?
+        end
 
         attr_reader :args
 
