@@ -7,6 +7,7 @@ module Brigadier
 
       def validate!
         raise Brigadier::Exceptions::Base.new(obj), failure_message unless valid?
+        true
       end
 
       private
@@ -15,10 +16,6 @@ module Brigadier
 
         def value
           @value ||= obj.value
-        end
-
-        def valid?
-          !obj.value.match(/poop/i)
         end
     end
   end
