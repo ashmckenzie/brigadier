@@ -31,6 +31,7 @@ module Brigadier
         validate_presence!    if required?
         validate_valid_value! if valid_values?
         validate_using_klass! if validator_klasses
+        true
       end
 
       def required?

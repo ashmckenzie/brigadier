@@ -29,15 +29,16 @@ module Brigadier
       def validate!
         validate_presence!    if required?
         validate_using_klass! if validator_klasses
+        true
       end
 
       private
 
         attr_reader :args
 
-        def aliases
-          args.fetch(:aliases, [])
-        end
+        # def aliases
+        #   args.fetch(:aliases, [])
+        # end
 
         def default_value
           args.fetch(:default, nil)
