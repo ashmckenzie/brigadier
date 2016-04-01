@@ -37,6 +37,10 @@ module Brigadier
     def set_default_command(klass, block)
       @@default_command = Commands::Command.new(klass, block)
     end
+
+    def has_sub_commands?
+      !sub_commands.empty?
+    end
   end
 
   def options
@@ -53,6 +57,10 @@ module Brigadier
 
   def sub_commands
     @sub_commands ||= {}
+  end
+
+  def has_sub_commands?
+    !sub_commands.empty?
   end
 
   def execute(&block)

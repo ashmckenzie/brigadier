@@ -57,14 +57,24 @@ module Brigadier
       attr_reader :args
 
       def default_command
-        Brigadier.default_command
+        Brigadier.default_command || false
       end
 
       def collect_execute_blocks(klasses)
         klasses.each do |klass|
           execute_proc = klass.instance_variable_get('@execute_proc')
-          next unless execute_proc
-          Brigadier.set_default_command(klass, execute_proc)
+
+          if execute_proc
+            # woo!
+          else
+            if klass.has_sub_commands?
+              execute_proc = Proc.new { nil }
+            else
+              next
+            end
+          end
+
+          Brigadier.set_default_command(klass, execute_proc) && break
         end
       end
   end
