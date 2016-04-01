@@ -28,6 +28,10 @@ module Brigadier
         assign_value(false)
       end
 
+      def value
+        [ true, 'true' ].include?(@value)
+      end
+
       def enabled?
         value
       end
@@ -35,10 +39,6 @@ module Brigadier
       private
 
         attr_reader :args
-
-        def value
-          [ true, 'true' ].include?(@value)
-        end
 
         def value_set?
           value != default_value
